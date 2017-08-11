@@ -22,6 +22,7 @@ class Trip(models.Model):
 	creator = models.ForeignKey(User, related_name="created_trips")
 	participants = models.ForeignKey(User, related_name="participants")
 	messages = models.ForeignKey(Message, related_name="messages")
+	notes = models.ForeignKey(Note, related_name="notes")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
@@ -37,6 +38,10 @@ class Comment(models.Model):
 	author = models.ForeignKey(User, related_name="author")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
+
+class Note(models.Model):
+	content = models.CharField(max_length=45)
+
 
 
 
