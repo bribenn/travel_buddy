@@ -13,3 +13,30 @@ class User(models.Model):
 	friends = models.ManyToManyField("self")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
+
+class Trip(models.Model):
+	destination = models.CharFeild(max_length = 255)
+	details = models.TextField()
+	start_date = models.DateField(auto_now_add=False)
+	end_date = models.DateField(auto_now_add=False)
+	creator = models.ForeignKey(User, related_name="created_trips")
+	participants = models.ForeignKey(User, related_name="participants")
+	messages = models.ForeignKey(Message, related_name="messages")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now_add = True)
+
+class Message(models.Model):
+	content = models.TextField()
+	comments = models.ForeignKey(Comment, related_name="comments")
+	author = models.ForeignKey(User, related_name="author")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now_add = True)
+
+class Comment(models.Model):
+	content = models.TextFeild()
+	author = models.ForeignKey(User, related_name="author")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now_add = True)
+
+
+
