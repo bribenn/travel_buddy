@@ -35,12 +35,13 @@ class Message(models.Model):
 
 class Comment(models.Model):
 	content = models.TextFeild()
-	author = models.ForeignKey(User, related_name="author")
+	author = models.ForeignKey(User, related_name="comments")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
 class Note(models.Model):
 	content = models.CharField(max_length=45)
+	user = models.ForeignKey(User, related_name="notes")
 
 
 
