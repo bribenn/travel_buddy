@@ -16,7 +16,6 @@ def register(request):
 	if check[0] == True:
 		#has password
 		hashed_pw = bcrypt.hashpw(request.POST.get('password').encode(), bcrypt.gensalt())
-
 		#create user
 		user = User.objects.create(
 			first_name = request.POST.get('first_name'),

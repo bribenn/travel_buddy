@@ -4,6 +4,34 @@ from django.db import models
 import re
 
 # Create your models here.
+
+class UserManager(models.Manager):
+	def validateUser(self, post_data):
+
+		is_valid = True
+		errors = []
+		#first name must be greater than 2 characters
+		if len(post_data.get('first_name')) < 2:
+			is_valid = False
+			errors.append('first name must be more than 2 characters')
+		#last name must be more than 2 characters
+		if len(post_data.get('last_name')) < 2:
+			is_valid = False
+			errors.append('last name must be more than 2 characters')
+		#if email is valid
+		if not re.search(r'\w+\@\w+.\w+', post_data.get('email')):
+			is_valid = False
+			errors.append('must enter a valid email')
+		#if password >= 8 characters, matches password confirmation
+		if len(post_data.get('password')) < 8:
+			is_valid = False
+			errors.append('password must be at least 8 characters')
+		if post_data.get('password_confirmation') != post_data.get('password'):
+			is_valid = False
+			errors.append('password and password confirmation must match')
+
+		return (is_valid, errors)
+
 class User(models.Model):
 	first_name = models.CharField(max_length = 45)
 	last_name = models.CharField(max_length = 45)
@@ -12,6 +40,7 @@ class User(models.Model):
 	friends = models.ManyToManyField("self")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
+	objects = UserManager()
 
 class Message(models.Model):
 	content = models.TextField()
