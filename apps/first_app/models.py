@@ -13,8 +13,18 @@ class User(models.Model):
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
+class Message(models.Model):
+	content = models.TextField()
+	author = models.ForeignKey(User, related_name="author")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now_add = True)
+
+class Note(models.Model):
+	content = models.CharField(max_length=45)
+	user = models.ForeignKey(User, related_name="notes")
+
 class Trip(models.Model):
-	destination = models.CharFeild(max_length = 255)
+	destination = models.CharField(max_length = 255)
 	details = models.TextField()
 	start_date = models.DateField(auto_now_add=False)
 	end_date = models.DateField(auto_now_add=False)
@@ -25,23 +35,15 @@ class Trip(models.Model):
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
-class Message(models.Model):
-	content = models.TextField()
-	author = models.ForeignKey(User, related_name="author")
-	created_at = models.DateTimeField(auto_now_add = True)
-	updated_at = models.DateTimeField(auto_now_add = True)
 
 class Comment(models.Model):
-	content = models.TextFeild()
+	content = models.TextField()
 	author = models.ForeignKey(User, related_name="comments")
 	replies = models.ManyToManyField("self")
 	message = models.ForeignKey(Message, related_name="comments")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
-class Note(models.Model):
-	content = models.CharField(max_length=45)
-	user = models.ForeignKey(User, related_name="notes")
 
 
 
