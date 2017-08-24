@@ -19,7 +19,8 @@ def register(request):
 
 		#create user
 		user = User.objects.create(
-			username = request.POST.get('username'),
+			first_name = request.POST.get('first_name'),
+			last_name = request.POST.get('last_name'),
 			email = request.POST.get('email'),	
 			password = hashed_pw,
 		)

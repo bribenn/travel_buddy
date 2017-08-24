@@ -15,7 +15,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
 		<!-- My Javascript -->
-		<script src="{% static 'first_app/javascript/landscape.js' %}" type="text/javascript"></script>
+		<script src="{% static 'first_app/javascript/landing.js' %}" type="text/javascript"></script>
 
 		<!-- My CSS -->
 		<!-- <link rel="stylesheet" type="text/css" href="styles/main.css">
@@ -39,6 +39,14 @@
 	  <!-- Modal Structure -->
 	  <div id="register" class="modal">
 	    <div class="modal-content">
+	    	<!-- Registration Errors -->
+			{% if messages %}
+				{% for message in messages%}
+					{% if 'registration' in message.tags %}
+						<p>{{message}}</p>
+					{% endif %}
+				{%endfor%}
+			{% endif %}
 	  <!-- Registration Form -->
 			<div class="row">
 				<form class="col s12" action="/register" method="post">
@@ -57,30 +65,20 @@
 							<label for="email">Email</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="password" type="text" class="validate" name="password">
+							<input id="password" type="password" class="validate" name="password">
 							<label for="password">Password</label>
 						</div>
 						<div class="input-field col s6">
-							<input id="password_confirmation" type="text" class="validate" name="password_confirmation">
+							<input id="password_confirmation" type="password" class="validate" name="password_confirmation">
 							<label for="password_confirmation">Confirm Password</label>
 						</div>
 					</div>
-				</form>
 			</div>
-		
-			<!-- Registration Errors -->
-			{% if messages %}
-				{% for message in messages%}
-					{% if 'registration' in message.tags %}
-						<p>{{message}}</p>
-					{% endif %}
-				{%endfor%}
-			{% endif %}
 		</div>
 	    <div class="modal-footer">
-	    <input type="submit" value="Register">
-	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit Button</a>
+	    	<input type="submit" value="Register" class="modal-action modal-close waves-effect waves-green btn-flat">
 	    </div>
+				</form>
 	  </div>
 	</body>
 </html>
