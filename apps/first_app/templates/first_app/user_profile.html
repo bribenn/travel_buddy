@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Profile</title>
+	{% load staticfiles %}
+</head>
+<body>
+	<nav>
+		<ul>
+			<li>Explore Trips</li>
+			<li><a href="/create">Add Trip</a></li>
+			<li><a href="/logout"></a>Logout</li>
+		</ul>
+	</nav>
+	<h1>Hello {{user.first_name}}!</h1>
+	<h2>Your Upcoming Trips:</h2>
+	{% for trip in trips %}
+		{{trip.description}}
+	{% endfor %}
+
+</body>
+</html>

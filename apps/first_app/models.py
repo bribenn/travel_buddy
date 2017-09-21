@@ -53,14 +53,15 @@ class Note(models.Model):
 	user = models.ForeignKey(User, related_name="notes")
 
 class Trip(models.Model):
+	title = models.CharField(max_length = 50)
 	destination = models.CharField(max_length = 255)
-	details = models.TextField()
+	description = models.TextField()
 	start_date = models.DateField(auto_now_add=False)
 	end_date = models.DateField(auto_now_add=False)
 	creator = models.ForeignKey(User, related_name="created_trips")
-	participants = models.ManyToManyField(User, related_name="joined_trips")
-	messages = models.ForeignKey(Message, related_name="messages")
-	notes = models.ForeignKey(Note, related_name="notes")
+	participants = models.ManyToManyField(User, related_name="joined_trips", default=None)
+	messages = models.ForeignKey(Message, related_name="messages", null=True, blank=True )
+	notes = models.ForeignKey(Note, related_name="notes", null=True, blank=True)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now_add = True)
 
